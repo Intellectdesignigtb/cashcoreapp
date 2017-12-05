@@ -29,7 +29,7 @@
       <artifactId>frontend-maven-plugin</artifactId>
       <version>1.0</version>
       <configuration>
-        <workingDirectory>cashcoreui</workingDirectory>
+        <workingDirectory>cashcoreapp</workingDirectory>
         <installDirectory>temp</installDirectory>
       </configuration>
       <executions>
