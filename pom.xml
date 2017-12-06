@@ -1,107 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
 	<groupId>com.intellect</groupId>
 	<artifactId>cashcoreui</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
-	<name>cashcoreui</name>
-	<description>Demo project for Spring Boot</description>
-    <!-- Plugin to copy the content of /angular/dist/ directory to output directory (ie/ /target/transactionManager-1.0/) -->
-	
-<build>
-  <plugins>
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-compiler-plugin</artifactId>
-    </plugin>
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-war-plugin</artifactId>
-      <version>2.6</version>
-    </plugin>
+    <version>2.0.14-SNAPSHOT</version>
 
-    <!-- Plugin to execute command  "npm install" and "npm run build" inside /angular directory -->
+    <name>Artifact Name</name>
 
-<plugin>
-      <groupId>com.github.eirslett</groupId>
-      <artifactId>frontend-maven-plugin</artifactId>
-      <version>1.0</version>
-      <configuration>
-	<workingDirectory>${project.basedir}</workingDirectory>
-        <installDirectory>temp</installDirectory>
-      </configuration>
-      <executions>
-        <!-- It will install nodejs and npm -->
-        <execution>
-          <id>install node and npm</id>
-          <goals>
-            <goal>install-node-and-npm</goal>
-          </goals>
-          <configuration>
-            <nodeVersion>v6.11.4</nodeVersion>
-            <npmVersion>3.10.10</npmVersion>
-          </configuration>
-        </execution>
+    <packaging>war</packaging>
 
-        <!-- It will execute command "npm install" inside "/angular" directory -->
-        <execution>
-          <id>npm install</id>
-          <goals>
-            <goal>npm</goal>
-          </goals>
-          <configuration>
-            <arguments>install</arguments>
-          </configuration>
-        </execution>
+    <!-- Plug-in definition -->
+    <build>
+        <plugins>
+            <!-- frontend-maven plug-in -->
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>0.0.29</version>
+                <configuration>
+                    <nodeVersion>v5.10.1</nodeVersion>
+                    <npmVersion>3.8.6</npmVersion>
+                    <installDirectory>target</installDirectory>
+                    <workingDirectory>${basedir}</workingDirectory>
+                </configuration>
+                <executions>
+                    <!-- install node & npm -->
+                    <execution>
+                        <id>install node and npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                    </execution>
 
-	  
-        <execution>
-            <phase>process-resources</phase>
-            <goals>
-                <goal>npm</goal>
-                <goal>grunt</goal>
-            </goals>
-        </execution>
-    
-        <!-- It will execute command "npm build" inside "/angular" directory to clean and create "/dist" directory-->
-        <execution>
-          <id>npm build</id>
-          <goals>
-            <goal>npm</goal>
-          </goals>
-          <configuration>
-            <arguments>run build</arguments>
-          </configuration>
-        </execution>
-      </executions>
-    </plugin>
+                    <!--npm install -->
+                    <execution>
+                        <id>npm install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
+                    </execution>
 
-    <!-- Plugin to copy the content of /angular/dist/ directory to output directory (ie/ /target/transactionManager-1.0/) -->
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-resources-plugin</artifactId>
-      <version>2.4.2</version>
-      <executions>
-        <execution>
-          <id>default-copy-resources</id>
-          <phase>process-resources</phase>
-          <goals>
-            <goal>copy-resources</goal>
-          </goals>
-          <configuration>
-            <overwrite>true</overwrite>
-            <outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}/</outputDirectory>
-            <resources>
-              <resource>
-                <directory>${project.basedir}/cashcoreui/dist</directory>
-              </resource>
-            </resources>
-          </configuration>
-        </execution>
-      </executions>
-    </plugin>
-  </plugins>
-</build>
+                    <!-- npm run build -->
+                    <execution>
+                        <id>npm run build</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run build</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Maven WAR plug-in -->
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
